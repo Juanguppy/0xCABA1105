@@ -30,6 +30,8 @@ const saturnRingTexture = textureLoader.load("./image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("./image/uranus_ring.png");
 //////////////////////////////////////
 
+
+
 //////////////////////////////////////
 //NOTE Creating scene
 const scene = new THREE.Scene();
@@ -255,3 +257,100 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 //////////////////////////////////////
+
+function onclick(event) {
+  var raycaster = new THREE.Raycaster();
+  var mouse = new THREE.Vector2();
+  
+  // Ajustar las coordenadas del mouse al canvas de Three.js
+  var rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  
+  raycaster.setFromCamera(mouse, camera);
+  var intersects = raycaster.intersectObjects(scene.children, true);
+  
+  if (intersects.length > 0) {
+    var selectedObject = intersects[0].object;
+    console.log("UUID del objeto seleccionado:", selectedObject.uuid);
+    
+    var planetName = getPlanetName(selectedObject);
+    createPlanetCard(planetName);
+  } else {
+    // Si no se hizo clic en ningún planeta, eliminar la tarjeta existente
+    var existingCard = document.getElementById('planet-card');
+    if (existingCard) {
+      existingCard.remove();
+    }
+  }
+}
+
+function getPlanetName(object) {
+  var planetTextures = [
+    sunTexture,
+    mercuryTexture,
+    venusTexture,
+    earthTexture,
+    marsTexture,
+    jupiterTexture,
+    saturnTexture,
+    uranusTexture,
+    neptuneTexture,
+    plutoTexture
+  ];
+
+  var planetNames = [
+    "Sol",
+    "Mercurio",
+    "Venus",
+    "Tierra",
+    "Marte",
+    "Júpiter",
+    "Saturno",
+    "Urano",
+    "Neptuno",
+    "Plutón"
+  ];
+
+  for (var i = 0; i < planetTextures.length; i++) {
+    if (object.material && object.material.map &&
+        planetTextures[i].image.src === object.material.map.image.src) {
+      return planetNames[i];
+    }
+  }
+
+  return "Desconocido";
+}
+
+function createPlanetCard(planetName) {
+  // Eliminar la tarjeta existente si hay alguna
+  var existingCard = document.getElementById('planet-card');
+  if (existingCard) {
+    existingCard.remove();
+  }
+
+  // Crear la nueva tarjeta
+  var card = document.createElement('div');
+  card.id = 'planet-card';
+  card.style.position = 'fixed';
+  card.style.left = '50%';
+  card.style.top = '10%';
+  card.style.transform = 'translate(-50%, -50%)';
+  card.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+  card.style.color = 'white';
+  card.style.padding = '20px';
+  card.style.borderRadius = '20px';
+  card.style.zIndex = '1000';
+  card.style.fontFamily = 'Arial, sans-serif';
+  card.style.textAlign = 'center';
+  card.style.minWidth = '300px';
+  card.style.fontSize = '24px';
+  
+  // Añadir el nombre del planeta a la tarjeta
+  card.textContent = `Planeta: ${planetName}`;
+  
+  document.body.appendChild(card);
+}
+
+// Asegúrate de que esto esté fuera de cualquier función
+renderer.domElement.addEventListener("click", onclick, false);
