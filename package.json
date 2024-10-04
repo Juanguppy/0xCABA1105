@@ -1,0 +1,12 @@
+{
+    "name": "solar-system-simulation",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "parcel index.html"
+    },
+    "dependencies": {
+        "three": "^0.125.2"
+    }
+}
