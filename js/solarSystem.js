@@ -77,7 +77,7 @@ scene.add(sun);
 
 //////////////////////////////////////
 //NOTE - sun light (point light)
-const sunLight = new THREE.PointLight(0xffffff, 4, 300);
+const sunLight = new THREE.PointLight(0xffffff, 4, 0);
 scene.add(sunLight);
 //////////////////////////////////////
 
@@ -154,60 +154,54 @@ const genratePlanet = (size, planetTexture, x, ring) => {
 
 const planets = [
   {
-    ...genratePlanet(3.2, mercuryTexture, 28),
-    rotaing_speed_around_sun: 0.004,
-    self_rotation_speed: 0.004,
+    ...genratePlanet(3.2, mercuryTexture, 0.38709927 * 100), // Multiply by 100 to make it visible in the model
+    rotaing_speed_around_sun: 149472.67411175 / 1000000, // Divide by a large number to slow it down
+    self_rotation_speed: 149472.67411175 / 1000000, // Divide by a large number to slow it down
   },
   {
-    ...genratePlanet(5.8, venusTexture, 44),
-    rotaing_speed_around_sun: 0.015,
-    self_rotation_speed: 0.002,
+    ...genratePlanet(5.8, venusTexture, 0.72333566 * 100),
+    rotaing_speed_around_sun: 58517.81538729 / 1000000,
+    self_rotation_speed: 58517.81538729 / 1000000,
   },
   {
-    ...genratePlanet(6, earthTexture, 62),
-    rotaing_speed_around_sun: 0.01,
-    self_rotation_speed: 0.02,
+    ...genratePlanet(6, earthTexture, 1.00000261 * 100),
+    rotaing_speed_around_sun: 35999.37244981 / 1000000,
+    self_rotation_speed: 35999.37244981 / 1000000,
   },
   {
-    ...genratePlanet(4, marsTexture, 78),
-    rotaing_speed_around_sun: 0.008,
-    self_rotation_speed: 0.018,
+    ...genratePlanet(4, marsTexture, 1.52371034 * 100),
+    rotaing_speed_around_sun: 19140.30268499 / 1000000,
+    self_rotation_speed: 19140.30268499 / 1000000,
   },
   {
-    ...genratePlanet(12, jupiterTexture, 100),
-    rotaing_speed_around_sun: 0.002,
-    self_rotation_speed: 0.04,
+    ...genratePlanet(12, jupiterTexture, 5.20288700 * 100),
+    rotaing_speed_around_sun: 3034.74612775 / 1000000,
+    self_rotation_speed: 3034.74612775 / 1000000,
   },
   {
-    ...genratePlanet(10, saturnTexture, 138, {
+    ...genratePlanet(10, saturnTexture, 9.53667594 * 100, {
       innerRadius: 10,
       outerRadius: 20,
       ringmat: saturnRingTexture,
     }),
-    rotaing_speed_around_sun: 0.0009,
-    self_rotation_speed: 0.038,
+    rotaing_speed_around_sun: 1222.49362201 / 1000000,
+    self_rotation_speed: 1222.49362201 / 1000000,
   },
   {
-    ...genratePlanet(7, uranusTexture, 176, {
+    ...genratePlanet(7, uranusTexture, 19.18916464 * 100, {
       innerRadius: 7,
       outerRadius: 12,
       ringmat: uranusRingTexture,
     }),
-    rotaing_speed_around_sun: 0.0004,
-    self_rotation_speed: 0.03,
+    rotaing_speed_around_sun: 428.48202785 / 1000000,
+    self_rotation_speed: 428.48202785 / 1000000,
   },
   {
-    ...genratePlanet(7, neptuneTexture, 200),
-    rotaing_speed_around_sun: 0.0001,
-    self_rotation_speed: 0.032,
-  },
-  {
-    ...genratePlanet(2.8, plutoTexture, 216),
-    rotaing_speed_around_sun: 0.0007,
-    self_rotation_speed: 0.008,
+    ...genratePlanet(7, neptuneTexture, 30.06992276 * 100),
+    rotaing_speed_around_sun: 218.45945325 / 1000000,
+    self_rotation_speed: 218.45945325 / 1000000,
   },
 ];
-
 //////////////////////////////////////
 
 //////////////////////////////////////
