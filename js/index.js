@@ -107,7 +107,8 @@ const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, rin
   scene.add(planetObj);
 
   let color = 0xffffff; 
-  planetObj.add(planet);
+
+  if(type == "Planet") planetObj.add(planet);
   if(type === "Planet") {
     color = 0xffffff;
   } else if(type == "Comet") {
@@ -121,6 +122,8 @@ const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, rin
 };
 
 let planets; let cargado = false;
+
+let cometasRelevantes = ["1P/Halley", "2P/Encke", "67P/Churyumov-Gerasimenko"];
 
 fetch('../planets.json')
   .then(response => response.json())
@@ -187,26 +190,28 @@ fetch('../planets.json')
         obj[item.object] = item;
         return obj;
       }, {});
-      console.log(dataAsObject['1P/Halley']);
-      //console.log('Datos cargados2:', datos);
+      console.log(dataAsObject);
+      //console.log('Datos cargados2:', datos); 
 
-      const halleyData = dataAsObject['1P/Halley'];
+  for (let nombreCometa of cometasRelevantes) {
+    const cometaData = dataAsObject[nombreCometa];
 
-      const semiMajorAxis = parseFloat(halleyData.q_au_2);
-      const semiMinorAxis = parseFloat(halleyData.q_au_1);
-      const eccentricity = parseFloat(halleyData.e);
-      const orbitalPeriod = parseFloat(halleyData.p_yr);
+    const semiMajorAxis = parseFloat(cometaData.q_au_2);
+    const semiMinorAxis = parseFloat(cometaData.q_au_1);
+    const eccentricity = parseFloat(cometaData.e);
+    const orbitalPeriod = parseFloat(cometaData.p_yr);
 
-      const offset = eccentricity * semiMajorAxis;
+    const offset = eccentricity * semiMajorAxis;
 
-      console.log(semiMajorAxis, semiMinorAxis, offset);
-      const orbitalSpeed = 2 * Math.PI * semiMajorAxis / orbitalPeriod;
+    console.log(semiMajorAxis, semiMinorAxis, offset);
+    const orbitalSpeed = 2 * Math.PI * semiMajorAxis / orbitalPeriod;
 
-      planets.push({
-        ...genratePlanet(7, neptuneTexture, semiMajorAxis * 100, semiMinorAxis * 100, 0, offset * 100, "Halley", "Comet"), // Multiply by 100 to make it visible in the model
-        rotaing_speed_around_sun: orbitalSpeed,
-        self_rotation_speed: 0,
-      })
+    planets.push({
+      ...genratePlanet(7, neptuneTexture, semiMajorAxis * 100, semiMinorAxis * 100, 0, offset * 100, nombreCometa, "Comet"), // Multiply by 100 to make it visible in the model
+      rotaing_speed_around_sun: orbitalSpeed,
+      self_rotation_speed: 0,
+    })
+  }
 
       planets.forEach(planet => {
         planet.theta = 0;
