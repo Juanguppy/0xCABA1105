@@ -264,28 +264,56 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-  const estrellas = document.getElementById('estrellas');
-  for (let i = 0; i < 100; i++) {
-    const estrella = document.createElement('div');
-    estrella.style.position = 'absolute';
-    estrella.style.top = `${Math.random() * 100}%`;
-    estrella.style.left = `${Math.random() * 100}%`;
-    estrella.style.width = '2px';
-    estrella.style.height = '2px';
-    estrella.style.background = 'white';
-    estrella.style.borderRadius = '50%';
-    estrella.style.opacity = Math.random();
-    estrellas.appendChild(estrella);
+
+const starsGroup = new THREE.Group();
+scene.add(starsGroup);
+
+for (let i = 0; i < 3000; i++) {
+  const starGeometry = new THREE.SphereGeometry(0.1, 10, 10);
+  const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const star = new THREE.Mesh(starGeometry, starMaterial);
+  star.position.x = Math.random() * 700 - 50;
+  star.position.y = Math.random() * 700 - 50;
+  star.position.z = Math.random() * 700 - 50;
+  starsGroup.add(star);
+}
+
+let dragging = false;
+let mouseDown = false;
+
+renderer.domElement.addEventListener('mousedown', () => {
+  mouseDown = true;
+});
+
+renderer.domElement.addEventListener('mousemove', (e) => {
+  if (mouseDown) {
+    dragging = true;
+    const mousePosition = new THREE.Vector2();
+    mousePosition.x = (e.clientX / window.innerWidth) * 0.5 - 1;
+    mousePosition.y = -(e.clientY / window.innerHeight) * 0.5 + 1;
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mousePosition, camera);
+    const intersects = raycaster.intersectObjects(starsGroup.children, true);
+    if (intersects.length > 0) {
+      intersects.forEach((intersect) => {
+        const star = intersect.object;
+        star.position.x += (Math.random() - 0.5) * 2;
+        star.position.y += (Math.random() - 0.5) * 2;
+        star.position.z += (Math.random() - 0.5) * 2;
+      });
+    }
   }
-  
-  setInterval(() => {
-    const estrellas = document.querySelectorAll('#estrellas div');
-    estrellas.forEach(estrella => {
-      estrella.style.opacity = Math.random();
-      estrella.style.top = `${Math.random() * 100}%`;
-      estrella.style.left = `${Math.random() * 100}%`;
-    });
-  }, 500); 
+});
+
+renderer.domElement.addEventListener('mouseup', () => {
+  mouseDown = false;
+  dragging = false;
+});
+
+renderer.domElement.addEventListener('mouseleave', () => {
+  mouseDown = false;
+  dragging = false;
+});
 
 
 function onclick(event) {
@@ -389,6 +417,7 @@ document.querySelector('nav ul li').addEventListener('mouseover', function() {
 document.querySelector('nav ul li').addEventListener('mouseout', function() {
   this.querySelector('ul').style.display = 'none';
 });
+
 
 document.querySelectorAll('nav ul li ul li a').forEach((element) => {
   element.addEventListener('click', (event) => {
