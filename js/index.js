@@ -353,6 +353,7 @@ function getOrbitInfo(planetName) {
   if (planetName == "Sun") {
     return "The star at the center of the Solar System.";
   }
+
   // Devolver la información de la órbita del planeta
   return JSON.stringify({
     a: datos[planetName].a,
@@ -489,7 +490,7 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
 
     // Update camera position and orbit controls
     orbit.enabled = false; // Disable orbit controls
-    camera.position.set(selectedObject.position.x, selectedObject.position.y + 10, selectedObject.position.z + 20);
+    camera.position.set(selectedObject.position.x + 20, selectedObject.position.y + 10, selectedObject.position.z + 40);
     camera.lookAt(selectedObject.position);
     // Create a new orbit controls instance with the planet as the target
     const planetOrbit = new OrbitControls(camera, renderer.domElement);

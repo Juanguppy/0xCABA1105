@@ -1,6 +1,7 @@
 body {
     overflow: auto;
     margin: 0px;
+    cursor: url('./image/cursor.png'),auto;
   }
   
   #orrery {
