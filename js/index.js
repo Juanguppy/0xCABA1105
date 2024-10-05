@@ -366,17 +366,19 @@ function getPlanetName(object) {
     plutoTexture
   ];
 
+
+
   var planetNames = [
-    "Sol\nEstrella\n4.500.000.000 de años\n1.392.000 km de diámetro",
-    "Mercurio" + "\nPlaneta\n4.600.000.000 de años\n4.880 km de diámetro",
-    "Venus \nPlaneta\n4.500.000.000 de años\n12.104 km de diámetro",
-    "Tierra \nPlaneta\n4.500.000.000 de años\n12.742 km de diámetro",
-    "Marte \nPlaneta\n4.600.000.000 de años\n6.779 km de diámetro",
-    "Júpiter \nPlaneta\n4.500.000.000 de años\n139.820 km de diámetro",
-    "Saturno  \nPlaneta\n4.500.000.000 de años\n116.460 km de diámetro",
-    "Urano \nPlaneta\n4.500.000.000 de años\n50.724 km de diámetro",
-    "Neptuno \nPlaneta\n4.500.000.000 de años\n49.244 km de diámetro",
-    "Plutón \nPlaneta enano\n4.600.000.000 de años\n2.377 km de diámetro"
+    "SOL\nEstrella\n4.500.000.000 de años\n1.392.000 km de diámetro",
+    "MERCURIO" + "\nPlaneta\n4.600.000.000 de años\n4.880 km de diámetro",
+    "VENUS \nPlaneta\n4.500.000.000 de años\n12.104 km de diámetro",
+    "TIERRA \nPlaneta\n4.500.000.000 de años\n12.742 km de diámetro",
+    "MARTE \nPlaneta\n4.600.000.000 de años\n6.779 km de diámetro",
+    "JÚPITER \nPlaneta\n4.500.000.000 de años\n139.820 km de diámetro",
+    "SATURNO  \nPlaneta\n4.500.000.000 de años\n116.460 km de diámetro",
+    "URANO \nPlaneta\n4.500.000.000 de años\n50.724 km de diámetro",
+    "NEPTUNO \nPlaneta\n4.500.000.000 de años\n49.244 km de diámetro",
+    "PLUTÓN \nPlaneta enano\n4.600.000.000 de años\n2.377 km de diámetro"
   ];
 
   for (var i = 0; i < planetTextures.length; i++) {
@@ -398,14 +400,14 @@ function createPlanetCard(planetName) {
   card.id = 'planet-card';
   card.style.position = 'fixed';
   card.style.left = '15%';
-  card.style.top = '34%';
+  card.style.top = '38%';
   card.style.transform = 'translate(-50%, -50%)';
-  card.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-  card.style.color = 'lime'; // changed to lime color
+  card.style.backgroundColor = 'rgba(34, 34, 34, 0.25)';
+  card.style.color = 'red'; // changed to lime color
   card.style.padding = '20px';
-  card.style.borderRadius = '20px';
+  card.style.borderRadius = '5px';
   card.style.zIndex = '1000';
-  card.style.fontFamily = 'Arial, sans-serif';
+  card.style.fontFamily = 'Montserrat, sans-serif';
   card.style.textAlign = 'left'; // changed to left alignment
   card.style.minWidth = '300px';
   card.style.fontSize = '16px';
