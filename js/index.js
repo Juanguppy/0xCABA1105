@@ -348,6 +348,34 @@ function onclick(event) {
   }
 }
 
+var planetTraduccion = {
+  "Sol": "Sun",
+  "Mercurio": "Mercury",
+  "Venus": "Venus",
+  "Tierra": "Earth",  // Corrige "EMBary" a "Tierra"
+  "Marte": "Mars",
+  "Júpiter": "Jupiter",
+  "Saturno": "Saturn",
+  "Urano": "Uranus",
+  "Neptuno": "Neptune"
+};
+
+
+function getOrbitInfo(planetName) {
+  console.log(planetName);
+  if (planetName == "Sun") {
+    return "The star at the center of the Solar System.";
+  }
+  // Devolver la información de la órbita del planeta
+  return JSON.stringify({
+    a: datos[planetName].a,
+    e: datos[planetName].e,
+    i: datos[planetName].i,
+    long_peri : datos[planetName].long_peri,
+    long_node: datos[planetName].long_node,
+  }, null, 2);
+}
+
 function getPlanetName(object) {
   var planetTextures = [
     sunTexture,
@@ -362,8 +390,6 @@ function getPlanetName(object) {
     plutoTexture
   ];
 
-
-
   var planetNames = [
     "Sun",
     "Mercury",
@@ -374,27 +400,12 @@ function getPlanetName(object) {
     "Saturno",
     "Uranus",
     "Neptune"
-];
-
-
-function getOrbitInfo(planetName) {
-  if(planetName === "Sun") {
-    return "Sun, \n the star at the center of the Solar System.";
-  }
-  // Devolver la información de la órbita del planeta
-  return JSON.stringify({
-    a: datos[planetName].a,
-    e: datos[planetName].e,
-    i: datos[planetName].i,
-    long_peri : datos[planetName].long_peri,
-    long_node: datos[planetName].long_node,
-  }, null, 2);
-}
+  ];
 
   for (var i = 0; i < planetTextures.length; i++) {
     if (object.material && object.material.map &&
         planetTextures[i].image.src === object.material.map.image.src) {
-      return planetNames[i] + getOrbitInfo(planetNames[i]);
+      return planetNames[i];
     }
   }
 
@@ -422,15 +433,29 @@ function createPlanetCard(planetName) {
   card.style.minWidth = '300px';
   card.style.fontSize = '20px';
 
-  // Split the planetName string into separate lines
-  var lines = planetName.split("\n");
+  var info = getOrbitInfo(planetName);
+  console.log(info)
+  let result = '';
 
-  // Create a paragraph element for each line
-  for (var i = 0; i < lines.length; i++) {
-    var paragraph = document.createElement('p');
-    paragraph.textContent = lines[i];
-    card.appendChild(paragraph);
+  var paragraph = document.createElement('p');
+  paragraph.textContent = `${planetName}`; // Add key-value pairs
+  card.appendChild(paragraph);
+  if (planetName == "Sun") {
+    result = info;
+  } else {
+    const infoObject = JSON.parse(info);
+
+    // Iterate through the properties of the infoObject
+    for (const [key, value] of Object.entries(infoObject)) {
+      var paragraph = document.createElement('p');
+      paragraph.textContent = `${key}: ${value}`; // Add key-value pairs
+      card.appendChild(paragraph);
+    }
   }
+
+  var paragraph = document.createElement('p');
+  paragraph.textContent = result;
+  card.appendChild(paragraph);
 
   document.body.appendChild(card);
 }
@@ -448,7 +473,7 @@ document.querySelector('nav ul li').addEventListener('mouseout', function() {
 
 document.querySelectorAll('nav ul li ul li a').forEach((element) => {
   element.addEventListener('click', (event) => {
-    const planetNameESP = event.target.textContent;
+    const planetNameEN = event.target.textContent;
     //const planet = planets.find((planet) => planet.planetName === planetName);
     const planetName = event.target.dataset.planet;
     /*
@@ -463,7 +488,7 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
       "EMBary": 2,
       "Mars": 3,
       "Jupiter": 4,
-      "Saturno": 5,
+      "Saturn": 5,
       "Uranus": 6,
       "Neptune": 7
     };
@@ -471,8 +496,10 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
     const indexPlaneta = planetNumbers[planetName];
     
     const selectedObject = planets[indexPlaneta].planet;
-    createPlanetCard(planetNameESP);
-    
+    console.log(planetNameEN);
+    createPlanetCard(planetName);
+
+
     // Update camera position and orbit controls
     orbit.enabled = false; // Disable orbit controls
     camera.position.set(selectedObject.position.x, selectedObject.position.y + 10, selectedObject.position.z + 20);
