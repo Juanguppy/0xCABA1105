@@ -23,4 +23,11 @@ body {
     position: relative;
     z-index: 1;
   }
+
+  input[type="checkbox"]:checked + label {
+    color: #00f; /* blue color when checked */
+  }
   
+  input[type="checkbox"]:not(:checked) + label {
+    color: #ccc; /* gray color when not checked */
+  }

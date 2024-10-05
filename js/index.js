@@ -361,7 +361,7 @@ function getPlanetName(object) {
   ];
 
   var planetNames = [
-    "El Sol",
+    "Sol",
     "Mercurio",
     "Venus",
     "Tierra",
@@ -391,8 +391,8 @@ function createPlanetCard(planetName) {
   var card = document.createElement('div');
   card.id = 'planet-card';
   card.style.position = 'fixed';
-  card.style.left = '50%';
-  card.style.top = '80%';
+  card.style.left = '15%';
+  card.style.top = '89%';
   card.style.transform = 'translate(-50%, -50%)';
   card.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
   card.style.color = 'white';
@@ -429,4 +429,3 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
     }
   });
 });
-
