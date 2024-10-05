@@ -119,7 +119,6 @@ fetch('../planets.json')
   .then(data => {
     datos = data;
     console.log('Datos cargados:', datos);
-    console.log("Hola")
     planets = [
       {
         ...genratePlanet(3.2, mercuryTexture, datos.Mercury.a * 100, datos.Mercury.a * Math.sqrt(1- (datos.Mercury.e * datos.Mercury.e)) * 100, 0), // Multiply by 100 to make it visible in the model
@@ -341,8 +340,8 @@ function getPlanetName(object) {
     "Neptune"
 ];
 
-function getOrbitInfo(planetName) {
 
+function getOrbitInfo(planetName) {
   if(planetName === "Sun") {
     return "Sun, \n the star at the center of the Solar System.";
   }
@@ -413,12 +412,39 @@ document.querySelector('nav ul li').addEventListener('mouseout', function() {
 
 document.querySelectorAll('nav ul li ul li a').forEach((element) => {
   element.addEventListener('click', (event) => {
-    const planetName = event.target.textContent;
-    const planet = planets.find((planet) => planet.planetName === planetName);
+    const planetNameESP = event.target.textContent;
+    //const planet = planets.find((planet) => planet.planetName === planetName);
+    const planetName = event.target.dataset.planet;
+    /*
     if (planet) {
       camera.lookAt(planet.planetObj.position);
       camera.position.set(planet.planetObj.position.x, planet.planetObj.position.y + 10, planet.planetObj.position.z + 20);
-    }
+    }*/
+
+    const planetNumbers = {
+      "Mercury": 0,
+      "Venus": 1,
+      "EMBary": 2,
+      "Mars": 3,
+      "Jupiter": 4,
+      "Saturno": 5,
+      "Uranus": 6,
+      "Neptune": 7
+    };
+    
+    const indexPlaneta = planetNumbers[planetName];
+    
+    const selectedObject = planets[indexPlaneta].planet;
+    createPlanetCard(planetNameESP);
+    
+    // Update camera position and orbit controls
+    orbit.enabled = false; // Disable orbit controls
+    camera.position.set(selectedObject.position.x, selectedObject.position.y + 10, selectedObject.position.z + 20);
+    camera.lookAt(selectedObject.position);
+    // Create a new orbit controls instance with the planet as the target
+    const planetOrbit = new OrbitControls(camera, renderer.domElement);
+    planetOrbit.target = selectedObject.position;
+    planetOrbit.enabled = true;
   });
 });
 
