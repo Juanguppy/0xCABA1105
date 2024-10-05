@@ -8,7 +8,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const textureLoader = new THREE.TextureLoader();
 const starTexture = textureLoader.load("./image/stars.jpg");
-const sunTexture = textureLoader.load("./image/sun.jpg");
+const sunTexture = textureLoader.load("./image/sun.png");
 const mercuryTexture = textureLoader.load("./image/mercury.jpg");
 const venusTexture = textureLoader.load("./image/venus.jpg");
 const earthTexture = textureLoader.load("./image/earth.jpg");
