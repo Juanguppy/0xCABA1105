@@ -51,7 +51,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0);
 scene.add(ambientLight);
 
 const path_of_planets = [];
-function createLineLoopWithMesh(radiusX, radiusZ, color, width, offset, name, type) {
+function createLineLoopWithMesh(radiusX, radiusZ, color, width, offset, name, type, inclinacion) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     linewidth: width,
@@ -72,11 +72,17 @@ function createLineLoopWithMesh(radiusX, radiusZ, color, width, offset, name, ty
     new THREE.Float32BufferAttribute(lineLoopPoints, 3)
   );
   const lineLoop = new THREE.LineLoop(geometry, material);
+
+  if (type === 'Comet') {
+    console.log("inclinacion " + inclinacion)
+    lineLoop.rotation.z = THREE.MathUtils.degToRad(inclinacion);
+  }
+
   scene.add(lineLoop);
   path_of_planets.push({lineLoop: lineLoop, name: name, type: type});
 }
 
-const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, ring) => {
+const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, inclinacion, ring) => {
   const planetGeometry = new THREE.SphereGeometry(size, 50, 50);
   const planetMaterial = new THREE.MeshStandardMaterial({
     map: planetTexture,
@@ -113,7 +119,7 @@ const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, rin
   } else if(type == "Comet") {
     color = 0x0fffff;
   }
-  createLineLoopWithMesh(a, b, color, 3, offset, name, type);
+  createLineLoopWithMesh(a, b, color, 3, offset, name, type, inclinacion);
   return {
     planetObj: planetObj,
     planet: planet,
@@ -131,32 +137,32 @@ fetch('../planets.json')
     console.log('Datos cargados:', datos);
     planets = [
       {
-        ...genratePlanet(3.2, mercuryTexture, datos.Mercury.a * 100, datos.Mercury.a * Math.sqrt(1- (datos.Mercury.e * datos.Mercury.e)) * 100, 0, 0,"Mercury", "Planet"), // Multiply by 100 to make it visible in the model
+        ...genratePlanet(3.2, mercuryTexture, datos.Mercury.a * 100, datos.Mercury.a * Math.sqrt(1- (datos.Mercury.e * datos.Mercury.e)) * 100, 0, 0,"Mercury", "Planet", 0), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 149472.67411175 / 1000000, // Divide by a large number to slow it down
         self_rotation_speed: 149472.67411175 / 1000000, // Divide by a large number to slow it down
       },
       {
-        ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0, 0,"Venus", "Planet"), // Multiply by 100 to make it visible in the model
+        ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0, 0,"Venus", "Planet", 0), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 58517.81538729 / 1000000,
         self_rotation_speed: -58517.81538729 / 1000000,
       },
       {
-        ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0, 0,"EMBary", "Planet"), // Multiply by 100 to make it visible in the model
+        ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0, 0,"EMBary", "Planet", 0), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 35999.37244981 / 1000000,
         self_rotation_speed: 35999.37244981 / 1000000,
       },
       {
-        ...genratePlanet(4, marsTexture, datos.Mars.a * 100, datos.Mars.a * Math.sqrt(1- (datos.Mars.e * datos.Mars.e)) * 100, 0, 0,"Mars", "Planet"), // Multiply by 100 to make it visible in the model
+        ...genratePlanet(4, marsTexture, datos.Mars.a * 100, datos.Mars.a * Math.sqrt(1- (datos.Mars.e * datos.Mars.e)) * 100, 0, 0,"Mars", "Planet", 0), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 19140.30268499 / 1000000,
         self_rotation_speed: 19140.30268499 / 1000000,
       },
       {
-        ...genratePlanet(12, jupiterTexture, datos.Jupiter.a * 100, datos.Jupiter.a * Math.sqrt(1- (datos.Jupiter.e * datos.Jupiter.e)) * 100, 0, 0,"Jupiter", "Planet"),
+        ...genratePlanet(12, jupiterTexture, datos.Jupiter.a * 100, datos.Jupiter.a * Math.sqrt(1- (datos.Jupiter.e * datos.Jupiter.e)) * 100, 0, 0,"Jupiter", "Planet", 0),
         rotaing_speed_around_sun: 3034.74612775 / 1000000,
         self_rotation_speed: 3034.74612775 / 1000000,
       },
       {
-        ...genratePlanet(10, saturnTexture, datos.Saturn.a * 100, datos.Saturn.a * Math.sqrt(1- (datos.Saturn.e * datos.Saturn.e)) * 100, 0, 0,"Saturn", "Planet",{
+        ...genratePlanet(10, saturnTexture, datos.Saturn.a * 100, datos.Saturn.a * Math.sqrt(1- (datos.Saturn.e * datos.Saturn.e)) * 100, 0, 0,"Saturn", "Planet", 0, {
           innerRadius: 10,
           outerRadius: 20,
           ringmat: saturnRingTexture,
@@ -165,7 +171,7 @@ fetch('../planets.json')
         self_rotation_speed: 1222.49362201 / 1000000,
       },
       {
-        ...genratePlanet(7, uranusTexture, datos.Uranus.a *100, datos.Uranus.a * Math.sqrt(1- (datos.Uranus.e * datos.Uranus.e)) * 100, 0, 0,"Uranus", "Planet",{
+        ...genratePlanet(7, uranusTexture, datos.Uranus.a *100, datos.Uranus.a * Math.sqrt(1- (datos.Uranus.e * datos.Uranus.e)) * 100, 0, 0,"Uranus", "Planet", 0, {
           innerRadius: 7,
           outerRadius: 12,
           ringmat: uranusRingTexture,
@@ -174,7 +180,7 @@ fetch('../planets.json')
         self_rotation_speed: 428.48202785 / 1000000,
       },
       {
-        ...genratePlanet(7, neptuneTexture, datos.Neptune.a * 100, datos.Neptune.a * Math.sqrt(1- (datos.Neptune.e * datos.Neptune.e)) * 100, 0, 0,"Neptune", "Planet" ), // Multiply by 100 to make it visible in the model
+        ...genratePlanet(7, neptuneTexture, datos.Neptune.a * 100, datos.Neptune.a * Math.sqrt(1- (datos.Neptune.e * datos.Neptune.e)) * 100, 0, 0,"Neptune", "Planet", 0 ), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 218.45945325 / 1000000,
         self_rotation_speed: 218.45945325 / 1000000,
       },
@@ -204,9 +210,11 @@ fetch('../planets.json')
 
     console.log(semiMajorAxis, semiMinorAxis, offset);
     const orbitalSpeed = 2 * Math.PI * semiMajorAxis / orbitalPeriod;
+    let inclinacionOrbita = parseFloat(cometaData.i_deg); 
+    console.log(inclinacionOrbita)
 
     planets.push({
-      ...genratePlanet(7, neptuneTexture, semiMajorAxis * 100, semiMinorAxis * 100, 0, offset * 100, nombreCometa, "Comet"), // Multiply by 100 to make it visible in the model
+      ...genratePlanet(7, neptuneTexture, semiMajorAxis * 100, semiMinorAxis * 100, 0, offset * 100, nombreCometa, "Comet", inclinacionOrbita), // Multiply by 100 to make it visible in the model
       rotaing_speed_around_sun: orbitalSpeed,
       self_rotation_speed: 0,
     })
