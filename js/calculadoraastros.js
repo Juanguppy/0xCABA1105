@@ -1,3 +1,5 @@
+/*
+
 const form = document.querySelector('form');
 const startingAstroSelect = document.querySelector('#starting-astro');
 const endingAstroSelect = document.querySelector('#ending-astro');
@@ -45,3 +47,6 @@ form.addEventListener('submit', (e) => {
   const distance = Math.abs(startingDistance - endingDistance);
   resultElement.innerHTML = `${distance.toFixed(3)} light years.`;
 });
+
+
+*/

@@ -405,6 +405,7 @@ function createPlanetCard(planetName) {
   if (existingCard) {
     existingCard.remove();
   }
+  
   var card = document.createElement('div');
   card.id = 'planet-card';
   card.style.position = 'fixed';
@@ -482,11 +483,8 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
     };
     
     const indexPlaneta = planetNumbers[planetName];
-    
     const selectedObject = planets[indexPlaneta].planet;
-    console.log(planetNameEN);
     createPlanetCard(planetName);
-
 
     // Update camera position and orbit controls
     orbit.enabled = false; // Disable orbit controls
@@ -500,3 +498,97 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
 });
 
 
+
+
+////////////////// Calcular distancias
+
+const form = document.querySelector('form');
+const startingAstroSelect = document.querySelector('#starting-astro');
+const endingAstroSelect = document.querySelector('#ending-astro');
+const startingDistanceSpan = document.querySelector('#starting-distance');
+const endingDistanceSpan = document.querySelector('#ending-distance');
+const resultElement = document.querySelector('#result');
+
+// Average distances from the Sun in astronomical units (AU)
+const distances = {
+  SOL: 0,
+  MERCURIO: 0.39,
+  VENUS: 0.72,
+  TIERRA: 1,
+  MARTE: 1.38,
+  JUPITER: 5.2,
+  SATURNO: 9.5,
+  URANO: 19.1,
+  NEPTUNO: 29.9,
+  PLUTON: 39.5
+};
+
+
+// Function to calculate the distance in light years
+function getDistanceInLightYears(astro) {
+  return distances[astro] * 0.0000158;
+}
+
+let planetaOrigen = null;
+let planetaDestino = null;
+
+// Update the text of the span elements when an astro is selected
+startingAstroSelect.addEventListener('change', () => {
+  const selectedOption = startingAstroSelect.options[startingAstroSelect.selectedIndex];
+  //startingDistanceSpan.textContent = selectedOption.value;
+  planetaOrigen = selectedOption.value;
+  //startingDistanceSpan.textContent = `(${selectedOption.value} - ${getDistanceInLightYears(selectedOption.value).toFixed(3)} ly)`;
+});
+
+endingAstroSelect.addEventListener('change', () => {
+  const selectedOption = endingAstroSelect.options[endingAstroSelect.selectedIndex];
+  //endingDistanceSpan.textContent = this.value;
+  planetaDestino = selectedOption.value;
+  //endingDistanceSpan.textContent = `(${selectedOption.value} - ${getDistanceInLightYears(selectedOption.value).toFixed(3)} ly)`;
+});
+
+// Event listener for the form submission
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const planetNumbers = {
+    "Mercury": 0,
+    "Venus": 1,
+    "EMBary": 2,
+    "Mars": 3,
+    "Jupiter": 4,
+    "Saturn": 5,
+    "Uranus": 6,
+    "Neptune": 7
+  };
+
+  // Obtener el índice del planeta de inicio
+  let startingObject;
+  if (planetaOrigen == "Sun") {
+    startingObject = sun;
+  } else {
+    let indexPlaneta1 = planetNumbers[planetaOrigen];
+    startingObject = planets[indexPlaneta1].planet;
+  }
+  const startingPosition = startingObject.position.clone(); // Clonamos la posición
+
+  // Obtener el índice del planeta de fin
+  let endingObject;
+  if (planetaDestino == "Sun") {
+    endingObject = sun;
+  } else {
+    let indexPlaneta2 = planetNumbers[planetaDestino];
+    endingObject = planets[indexPlaneta2].planet;
+  }
+  const endingPosition = endingObject.position.clone(); // Clonamos la posición
+
+  //console.log(startingPosition)
+  //console.log(endingPosition)
+
+  // Cálculo de la distancia
+  const distance = (1523922.368 * startingPosition.distanceTo(endingPosition)); // Usa el método distanceTo para obtener la distancia
+  //const distance = (startingPosition.distanceTo(endingPosition))
+  console.log(distance);
+  // Mostrar el resultado
+  resultElement.innerHTML = `${distance.toFixed(5)} km.`;
+});
