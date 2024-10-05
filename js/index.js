@@ -330,8 +330,14 @@ function onclick(event) {
     var planetName = getPlanetName(selectedObject);
     if (planetName !== "Desconocido") {
       createPlanetCard(planetName);
-      camera.lookAt(selectedObject.position);
+      // Update camera position and orbit controls
+      orbit.enabled = false; // Disable orbit controls
       camera.position.set(selectedObject.position.x, selectedObject.position.y + 10, selectedObject.position.z + 20);
+      camera.lookAt(selectedObject.position);
+      // Create a new orbit controls instance with the planet as the target
+      const planetOrbit = new OrbitControls(camera, renderer.domElement);
+      planetOrbit.target = selectedObject.position;
+      planetOrbit.enabled = true;
     } else {
       var existingCard = document.getElementById('planet-card');
       if (existingCard) {
@@ -361,16 +367,16 @@ function getPlanetName(object) {
   ];
 
   var planetNames = [
-    "Sol",
-    "Mercurio",
-    "Venus",
-    "Tierra",
-    "Marte",
-    "Júpiter",
-    "Saturno",
-    "Urano",
-    "Neptuno",
-    "Plutón"
+    "Sol\nEstrella\n4.500.000.000 de años\n1.392.000 km de diámetro",
+    "Mercurio" + "\nPlaneta\n4.600.000.000 de años\n4.880 km de diámetro",
+    "Venus \nPlaneta\n4.500.000.000 de años\n12.104 km de diámetro",
+    "Tierra \nPlaneta\n4.500.000.000 de años\n12.742 km de diámetro",
+    "Marte \nPlaneta\n4.600.000.000 de años\n6.779 km de diámetro",
+    "Júpiter \nPlaneta\n4.500.000.000 de años\n139.820 km de diámetro",
+    "Saturno  \nPlaneta\n4.500.000.000 de años\n116.460 km de diámetro",
+    "Urano \nPlaneta\n4.500.000.000 de años\n50.724 km de diámetro",
+    "Neptuno \nPlaneta\n4.500.000.000 de años\n49.244 km de diámetro",
+    "Plutón \nPlaneta enano\n4.600.000.000 de años\n2.377 km de diámetro"
   ];
 
   for (var i = 0; i < planetTextures.length; i++) {
@@ -392,19 +398,28 @@ function createPlanetCard(planetName) {
   card.id = 'planet-card';
   card.style.position = 'fixed';
   card.style.left = '15%';
-  card.style.top = '89%';
+  card.style.top = '34%';
   card.style.transform = 'translate(-50%, -50%)';
   card.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-  card.style.color = 'white';
+  card.style.color = 'lime'; // changed to lime color
   card.style.padding = '20px';
   card.style.borderRadius = '20px';
   card.style.zIndex = '1000';
   card.style.fontFamily = 'Arial, sans-serif';
-  card.style.textAlign = 'center';
+  card.style.textAlign = 'left'; // changed to left alignment
   card.style.minWidth = '300px';
-  card.style.fontSize = '22px';
-  card.textContent = `${planetName}`;
-  
+  card.style.fontSize = '16px';
+
+  // Split the planetName string into separate lines
+  var lines = planetName.split("\n");
+
+  // Create a paragraph element for each line
+  for (var i = 0; i < lines.length; i++) {
+    var paragraph = document.createElement('p');
+    paragraph.textContent = lines[i];
+    card.appendChild(paragraph);
+  }
+
   document.body.appendChild(card);
 }
 

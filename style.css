@@ -31,3 +31,4 @@ body {
   input[type="checkbox"]:not(:checked) + label {
     color: #ccc; /* gray color when not checked */
   }
+
