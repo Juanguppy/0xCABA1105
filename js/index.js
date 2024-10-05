@@ -348,19 +348,6 @@ function onclick(event) {
   }
 }
 
-var planetTraduccion = {
-  "Sol": "Sun",
-  "Mercurio": "Mercury",
-  "Venus": "Venus",
-  "Tierra": "Earth",  // Corrige "EMBary" a "Tierra"
-  "Marte": "Mars",
-  "Júpiter": "Jupiter",
-  "Saturno": "Saturn",
-  "Urano": "Uranus",
-  "Neptuno": "Neptune"
-};
-
-
 function getOrbitInfo(planetName) {
   console.log(planetName);
   if (planetName == "Sun") {
