@@ -14,8 +14,8 @@
   </head>
   <body>
     <nav style="background-color: #000; padding: 1em; display: flex; justify-content: space-around; align-items: center; position: relative;">
-      <h1 style="color: #fff; margin: 0; display: flex; flex-direction: column; align-items: center;">
-        <img src="https://th.bing.com/th/id/R.f91d4fb0f8ca0df417fd5ceb86a4f53c?rik=3JlcWJ5ecL3vRw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fNASA-PNG-File-Download-Free.png&ehk=4APPYk9xdngO8WSyKzygaLKjfXOEAL8tZTwuxc7%2f%2bqg%3d&risl=1&pid=ImgRaw&r=0" alt="NASA Logo" style="width: 210px; height: 90px; margin-right: 10px;">
+      <h1 style="color: #fff; margin: 0; display: flex; flex-direction: column; align-items: left;">
+        <img src="https://th.bing.com/th/id/R.f91d4fb0f8ca0df417fd5ceb86a4f53c?rik=3JlcWJ5ecL3vRw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fNASA-PNG-File-Download-Free.png&ehk=4APPYk9xdngO8WSyKzygaLKjfXOEAL8tZTwuxc7%2f%2bqg%3d&risl=1&pid=ImgRaw&r=0" alt="" style="width: 210px; height: 90px; margin-right: 0px;">
         <span style="color: white; font-size: 8px; color:#d21827"></span>
       </h1>
       <ul style="list-style: none; margin: 0; padding: 0; text-align: left; display: flex; flex-wrap: nowrap">
@@ -34,11 +34,11 @@
         </li>
         <li>
           <label style="color: #fff; margin-right: 1px;">SOMBRA</label>
-          <input type="checkbox" id="real-view" checked style="margin-right: 70px; color: #00f;">
+          <input type="checkbox" id="real-view" checked style="margin-right: 100px; color: #00f;">
         </li>
         <li>
           <label style="color: #fff; margin-right: 1px;">ÓRBITA</label>
-          <input type="checkbox" id="show-path" checked style="margin-right: 70px;">
+          <input type="checkbox" id="show-path" checked style="margin-right: 100px;">
         </li>
         <li>
           <label style="color: #fff; margin-right: 1px;">VELOCIDAD</label>
@@ -46,10 +46,47 @@
         </li>
       </ul>
       <div id="gui" style="position: absolute; top: 0; right: 0;"></div>
-<div id="estrellas-container"></div>
-<div id="estrellas" style="position: relative; background-color: #000; z-index: 1;">
-  <script id="Orrery" src="./js/index.js" type="module"></script>
-</div>
     </nav>
+    
+    <div id="estrellas-container"></div>
+    <div id="estrellas" style="position: relative; background-color: #000; z-index: 1;">
+      <script id="Orrery" src="./js/index.js" type="module"></script>
+    </div>
+    
+    <form style="background-color: black; color:white">
+      <label for="starting-astro">ASTRO A</label>
+      <select id="starting-astro" name="starting-astro">
+        <option value="SOL">SOL</option>
+        <option value="MERCURIO">MERCURIO</option>
+        <option value="VENUS">VENUS</option>
+        <option value="TIERRA">TIERRA</option>
+        <option value="MARTE">MARTE</option>
+        <option value="JUPITER">JUPITER</option>
+        <option value="SATURNO">SATURNO</option>
+        <option value="URANO">URANO</option>
+        <option value="NEPTUNO">NEPTUNO</option>
+        <option value="PLUTON">PLUTON</option>
+      </select>
+      
+      <label for="ending-astro">ASTRO B</label>
+      <select id="ending-astro" name="ending-astro">
+        <option value="SOL">SOL</option>
+        <option value="MERCURIO">MERCURIO</option>
+        <option value="VENUS">VENUS</option>
+        <option value="TIERRA">TIERRA</option>
+        <option value="MARTE">MARTE</option>
+        <option value="JUPITER">JUPITER</option>
+        <option value="SATURNO">SATURNO</option>
+        <option value="URANO">URANO</option>
+        <option value="NEPTUNO">NEPTUNO</option>
+        <option value="PLUTON">PLUTON</option>
+      </select>
+      
+      <button type="submit">Calcular</button>
+      <br><br>
+      <div id="result" style="color:white"></div>
+    </form>
+    
+    <script src="./js/calculadoraastros.js"></script>
   </body>
 </html>

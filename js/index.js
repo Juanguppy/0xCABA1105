@@ -272,9 +272,9 @@ for (let i = 0; i < 3000; i++) {
   const starGeometry = new THREE.SphereGeometry(0.1, 10, 10);
   const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
   const star = new THREE.Mesh(starGeometry, starMaterial);
-  star.position.x = Math.random() * 700 - 50;
-  star.position.y = Math.random() * 700 - 50;
-  star.position.z = Math.random() * 700 - 50;
+  star.position.x = Math.random() * 500 - 50;
+  star.position.y = Math.random() * 500 - 50;
+  star.position.z = Math.random() * 500 - 50;
   starsGroup.add(star);
 }
 
@@ -400,7 +400,7 @@ function createPlanetCard(planetName) {
   card.id = 'planet-card';
   card.style.position = 'fixed';
   card.style.left = '14%';
-  card.style.top = '38%';
+  card.style.top = '78%';
   card.style.transform = 'translate(-50%, -50%)';
   card.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
   card.style.color = '#d21827'; // changed to lime color
@@ -446,3 +446,5 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
     }
   });
 });
+
+

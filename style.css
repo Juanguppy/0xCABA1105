@@ -32,3 +32,58 @@ body {
     color: #ccc; /* gray color when not checked */
   }
 
+  form {
+    position: fixed;
+    left: 85%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.45);
+    color: #d21827;
+    padding: 20px;
+    border-radius: 15px;
+    z-index: 1000;
+    font-family: BROWNIEregular, sans-serif;
+    text-align: left;
+    min-width: 220px;
+    font-size: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  select {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.45);
+
+    
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    height: 40px;
+    background-color: #d21827;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #c21827;
+  }
+  
+  span {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
