@@ -1,63 +1,8 @@
 import * as THREE from "https://unpkg.com/three@0.127.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js";
-const datos = {
-  "Mercury": {
-      "a": 0.38709843,
-      "e": 0.20563661,
-      "i": 7.00559432,
-      "long_peri": 48.33961819,
-      "long_node": 77.45771895
-  },
-  "Venus": {
-      "a": 0.72332102,
-      "e": 0.00676399,
-      "i": 3.39777545,
-      "long_peri": 76.67261496,
-      "long_node": 131.76755713
-  },
-  "EMBary": {
-      "a": 1.00000018,
-      "e": 0.01673163,
-      "i": -0.00054346,
-      "long_peri": -5.11260389,
-      "long_node": 102.93005885
-  },
-  "Mars": {
-      "a": 1.52371243,
-      "e": 0.09336511,
-      "i": 1.85181869,
-      "long_peri": 49.71320984,
-      "long_node": -23.91744784
-  },
-  "Jupiter": {
-      "a": 5.20248019,
-      "e": 0.04853590,
-      "i": 1.29861416,
-      "long_peri": 100.29282654,
-      "long_node": 14.27495244
-  },
-  "Saturn": {
-      "a": 9.54149883,
-      "e": 0.05550825,
-      "i": 2.49424102,
-      "long_peri": 113.63998702,
-      "long_node": 92.86136063
-  },
-  "Uranus": {
-      "a": 19.18797948,
-      "e": 0.04685740,
-      "i": 0.77298127,
-      "long_peri": 73.96250215,
-      "long_node": 172.43404441
-  },
-  "Neptune": {
-      "a": 30.06952752,
-      "e": 0.00895439,
-      "i": 1.77005520,
-      "long_peri": 131.78635853,
-      "long_node": 46.68158724
-  }
-}
+
+let datos;
+  
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -168,56 +113,71 @@ const genratePlanet = (size, planetTexture, a, b, theta, ring) => {
   };
 };
 
-const planets = [
-  {
-    ...genratePlanet(3.2, mercuryTexture, datos.Mercury.a * 100, datos.Mercury.a * Math.sqrt(1- (datos.Mercury.e * datos.Mercury.e)) * 100, 0), // Multiply by 100 to make it visible in the model
-    rotaing_speed_around_sun: 149472.67411175 / 1000000, // Divide by a large number to slow it down
-    self_rotation_speed: 149472.67411175 / 1000000, // Divide by a large number to slow it down
-  },
-  {
-    ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0), // Multiply by 100 to make it visible in the model
-    rotaing_speed_around_sun: 58517.81538729 / 1000000,
-    self_rotation_speed: 58517.81538729 / 1000000,
-  },
-  {
-    ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0), // Multiply by 100 to make it visible in the model
-    rotaing_speed_around_sun: 35999.37244981 / 1000000,
-    self_rotation_speed: 35999.37244981 / 1000000,
-  },
-  {
-    ...genratePlanet(4, marsTexture, datos.Mars.a * 100, datos.Mars.a * Math.sqrt(1- (datos.Mars.e * datos.Mars.e)) * 100, 0), // Multiply by 100 to make it visible in the model
-    rotaing_speed_around_sun: 19140.30268499 / 1000000,
-    self_rotation_speed: 19140.30268499 / 1000000,
-  },
-  {
-    ...genratePlanet(12, jupiterTexture, datos.Jupiter.a * 100, datos.Jupiter.a * Math.sqrt(1- (datos.Jupiter.e * datos.Jupiter.e)) * 100, 0),
-    rotaing_speed_around_sun: 3034.74612775 / 1000000,
-    self_rotation_speed: 3034.74612775 / 1000000,
-  },
-  {
-    ...genratePlanet(10, saturnTexture, datos.Saturn.a * 100, datos.Saturn.a * Math.sqrt(1- (datos.Saturn.e * datos.Saturn.e)) * 100, 0,{
-      innerRadius: 10,
-      outerRadius: 20,
-      ringmat: saturnRingTexture,
-    }),
-    rotaing_speed_around_sun: 1222.49362201 / 1000000,
-    self_rotation_speed: 1222.49362201 / 1000000,
-  },
-  {
-    ...genratePlanet(7, uranusTexture, datos.Uranus.a *100, datos.Uranus.a * Math.sqrt(1- (datos.Uranus.e * datos.Uranus.e)) * 100, 0, {
-      innerRadius: 7,
-      outerRadius: 12,
-      ringmat: uranusRingTexture,
-    }),
-    rotaing_speed_around_sun: 428.48202785 / 1000000,
-    self_rotation_speed: 428.48202785 / 1000000,
-  },
-  {
-    ...genratePlanet(7, neptuneTexture, datos.Neptune.a * 100, datos.Neptune.a * Math.sqrt(1- (datos.Neptune.e * datos.Neptune.e)) * 100, 0), // Multiply by 100 to make it visible in the model
-    rotaing_speed_around_sun: 218.45945325 / 1000000,
-    self_rotation_speed: 218.45945325 / 1000000,
-  },
-];
+let planets; let cargado = false;
+fetch('../planets.json')
+  .then(response => response.json())
+  .then(data => {
+    datos = data;
+    console.log('Datos cargados:', datos);
+    console.log("Hola")
+    planets = [
+      {
+        ...genratePlanet(3.2, mercuryTexture, datos.Mercury.a * 100, datos.Mercury.a * Math.sqrt(1- (datos.Mercury.e * datos.Mercury.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+        rotaing_speed_around_sun: 149472.67411175 / 1000000, // Divide by a large number to slow it down
+        self_rotation_speed: 149472.67411175 / 1000000, // Divide by a large number to slow it down
+      },
+      {
+        ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+        rotaing_speed_around_sun: 58517.81538729 / 1000000,
+        self_rotation_speed: 58517.81538729 / 1000000,
+      },
+      {
+        ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+        rotaing_speed_around_sun: 35999.37244981 / 1000000,
+        self_rotation_speed: 35999.37244981 / 1000000,
+      },
+      {
+        ...genratePlanet(4, marsTexture, datos.Mars.a * 100, datos.Mars.a * Math.sqrt(1- (datos.Mars.e * datos.Mars.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+        rotaing_speed_around_sun: 19140.30268499 / 1000000,
+        self_rotation_speed: 19140.30268499 / 1000000,
+      },
+      {
+        ...genratePlanet(12, jupiterTexture, datos.Jupiter.a * 100, datos.Jupiter.a * Math.sqrt(1- (datos.Jupiter.e * datos.Jupiter.e)) * 100, 0),
+        rotaing_speed_around_sun: 3034.74612775 / 1000000,
+        self_rotation_speed: 3034.74612775 / 1000000,
+      },
+      {
+        ...genratePlanet(10, saturnTexture, datos.Saturn.a * 100, datos.Saturn.a * Math.sqrt(1- (datos.Saturn.e * datos.Saturn.e)) * 100, 0,{
+          innerRadius: 10,
+          outerRadius: 20,
+          ringmat: saturnRingTexture,
+        }),
+        rotaing_speed_around_sun: 1222.49362201 / 1000000,
+        self_rotation_speed: 1222.49362201 / 1000000,
+      },
+      {
+        ...genratePlanet(7, uranusTexture, datos.Uranus.a *100, datos.Uranus.a * Math.sqrt(1- (datos.Uranus.e * datos.Uranus.e)) * 100, 0, {
+          innerRadius: 7,
+          outerRadius: 12,
+          ringmat: uranusRingTexture,
+        }),
+        rotaing_speed_around_sun: 428.48202785 / 1000000,
+        self_rotation_speed: 428.48202785 / 1000000,
+      },
+      {
+        ...genratePlanet(7, neptuneTexture, datos.Neptune.a * 100, datos.Neptune.a * Math.sqrt(1- (datos.Neptune.e * datos.Neptune.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+        rotaing_speed_around_sun: 218.45945325 / 1000000,
+        self_rotation_speed: 218.45945325 / 1000000,
+      },
+    ];
+    console.log(planets)
+    planets.forEach(planet => {
+      planet.theta = 0;
+    });
+    cargado = true;
+  })
+  .catch(error => console.error('Error loading datos.json:', error));
+
 
 const options = {
   "Real view": true,
@@ -242,21 +202,20 @@ document.getElementById('speed').addEventListener('input', (e) => {
   options.speed = parseFloat(e.target.value);
 });
 
-planets.forEach(planet => {
-  planet.theta = 0;
-});
 let i = 0;
-function animate(time) {
-  sun.rotateY(options.speed * 0.004);
+function animate(time) { 
+  if (cargado){
+    sun.rotateY(options.speed * 0.004);
   
-  planets.forEach(
-    ({ planetObj, planet, rotaing_speed_around_sun, self_rotation_speed}) => {
-      i++;
-      planetObj.rotateY(options.speed * rotaing_speed_around_sun);
-      planet.rotateY(options.speed * self_rotation_speed);
-    }
-  );
-  renderer.render(scene, camera);
+    planets.forEach(
+      ({ planetObj, planet, rotaing_speed_around_sun, self_rotation_speed}) => {
+        i++;
+        planetObj.rotateY(options.speed * rotaing_speed_around_sun);
+        planet.rotateY(options.speed * self_rotation_speed);
+      }
+    );
+    renderer.render(scene, camera);
+  }
 }
 renderer.setAnimationLoop(animate);
 
