@@ -525,3 +525,24 @@ document.querySelectorAll('nav ul li ul li a').forEach((element) => {
 });
 
 
+// Encuentra el elemento tbody en tu tabla
+let tbody = document.querySelector("#comet-table tbody");
+
+// Limpia el tbody por si acaso ya tiene filas
+tbody.innerHTML = "";
+
+// Recorre el array de cometas relevantes y crea una fila para cada uno
+cometasRelevantes.forEach(cometa => {
+  // Crea una nueva fila y una celda
+  let tr = document.createElement("tr");
+  let td = document.createElement("td");
+
+  // Añade el nombre del cometa a la celda
+  td.textContent = cometa;
+
+  // Añade la celda a la fila
+  tr.appendChild(td);
+
+  // Añade la fila al tbody
+  tbody.appendChild(tr);
+});
