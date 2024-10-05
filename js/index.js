@@ -106,8 +106,14 @@ const genratePlanet = (size, planetTexture, a, b, theta, offset, name, type, rin
   }
   scene.add(planetObj);
 
+  let color = 0xffffff; 
   planetObj.add(planet);
-  createLineLoopWithMesh(a, b, 0xffffff, 3, offset, name, type);
+  if(type === "Planet") {
+    color = 0xffffff;
+  } else if(type == "Comet") {
+    color = 0x0fffff;
+  }
+  createLineLoopWithMesh(a, b, color, 3, offset, name, type);
   return {
     planetObj: planetObj,
     planet: planet,
