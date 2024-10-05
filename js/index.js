@@ -90,8 +90,9 @@ const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000
+  5000
 );
+
 camera.position.set(-50, 90, 150);
 const orbit = new OrbitControls(camera, renderer.domElement);
 const sungeo = new THREE.SphereGeometry(15, 50, 50);
@@ -174,12 +175,12 @@ const planets = [
     self_rotation_speed: 149472.67411175 / 1000000, // Divide by a large number to slow it down
   },
   {
-    ...genratePlanet(5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+    ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0), // Multiply by 100 to make it visible in the model
     rotaing_speed_around_sun: 58517.81538729 / 1000000,
     self_rotation_speed: 58517.81538729 / 1000000,
   },
   {
-    ...genratePlanet(6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+    ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0), // Multiply by 100 to make it visible in the model
     rotaing_speed_around_sun: 35999.37244981 / 1000000,
     self_rotation_speed: 35999.37244981 / 1000000,
   },
@@ -247,8 +248,9 @@ planets.forEach(planet => {
 let i = 0;
 function animate(time) {
   sun.rotateY(options.speed * 0.004);
+  
   planets.forEach(
-    ({ planetObj, planet, rotaing_speed_around_sun, self_rotation_speed }) => {
+    ({ planetObj, planet, rotaing_speed_around_sun, self_rotation_speed}) => {
       i++;
       planetObj.rotateY(options.speed * rotaing_speed_around_sun);
       planet.rotateY(options.speed * self_rotation_speed);
