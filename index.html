@@ -1,82 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>three.js</title>
     <style>
-      body {
-        overflow: hidden;
-        margin: 0px;
-      }
     </style>
-    <title>Solar System : Explore the 3D Solar System</title>
-    <meta name="author" content="ankitjha2603" />
-    <meta name="robots" content="index, follow" />
-    <meta
-      name="description"
-      content="The Solar System 3D Visualization project is an interactive web-based application that allows users to explore the Solar System in a three-dimensional environment. The project is developed using the Three.js library, which provides powerful tools for creating 3D content on the web. Users can witness the rotation of planets around the Sun and their self-rotation, as well as enjoy the beauty of space in this immersive experience."
-    />
-    <meta
-      name="keywords"
-      content="three.js, solar system, 3D, space, planets, astronomy, stars, sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto"
-    />
-
-    <meta
-      property="og:title"
-      content="Solar System : Explore the 3D Solar System"
-    />
-    <meta
-      property="og:description"
-      content="The Solar System 3D Visualization project is an interactive web-based application that allows users to explore the Solar System in a three-dimensional environment. The project is developed using the Three.js library, which provides powerful tools for creating 3D content on the web. Users can witness the rotation of planets around the Sun and their self-rotation, as well as enjoy the beauty of space in this immersive experience."
-    />
-    <meta
-      property="og:url"
-      content="https://ankitjha2603.github.io/solar-system3D/"
-    />
-    <meta property="og:type" content="website" />
-    <!-------------------------->
-    <!-- Sitemap -->
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://ankitjha2603.github.io/sitemap.xml"
-    />
-    <!-------------------------->
-
-    <!----------------------------------------------------------------------------->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-4J64SC1QY7"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-4J64SC1QY7");
-    </script>
-    <!--Google verification--->
-    <meta
-      name="google-site-verification"
-      content="5QsjbXuM1buDwEtnxWDKN9dE1qgf_dgz646EdwUxSWg"
-    />
-
-    <!----------------------------------------------------------------------------->
+    <title>NASA Orrery WebApp</title>
+    <meta name="Autores" content="0xCABA1105" />
     <link rel="icon" type="image/png" href="./image/solar-system.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="./min.js/dat.gui.min.js"></script>
   </head>
   <body>
-    <nav style="background-color: #00f; padding: 1em; display: flex; justify-content: space-around; align-items: center; position: relative;">
+    <nav style="background-color: #000; padding: 1em; display: flex; justify-content: space-around; align-items: center; position: relative;">
       <h1 style="color: #fff; margin: 0; display: flex; align-items: center;">
-        <img src="https://logos-world.net/wp-content/uploads/2020/05/NASA-Logo-1975-1992-700x394.png" alt="NASA Logo" style="width: 120px; height: 60px; margin-right: 10px;">
+        <img src="https://th.bing.com/th/id/R.f91d4fb0f8ca0df417fd5ceb86a4f53c?rik=3JlcWJ5ecL3vRw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fNASA-PNG-File-Download-Free.png&ehk=4APPYk9xdngO8WSyKzygaLKjfXOEAL8tZTwuxc7%2f%2bqg%3d&risl=1&pid=ImgRaw&r=0" alt="NASA Logo" style="width: 210px; height: 90px; margin-right: 10px;">
         <span style="color: white; font-size: smaller;"></span>
       </h1>
-      <ul style="list-style: none; margin: 0; padding: 0; text-align: left; display: flex; flex-wrap: nowrap;">
+      <ul style="list-style: none; margin: 0; padding: 0; text-align: left; display: flex; flex-wrap: nowrap">
         <li style="margin-right: 70px; position: relative;">
           <a href="#" style="color: #fff; text-decoration: none;">PLANETAS</a>
           <ul style="display: none; position: absolute; top: 100%; left: 0; background-color: #00f; padding: 10px; border-radius: 5px; border: 1px solid #fff; flex-direction: column;">
@@ -104,8 +45,7 @@
         </li>
       </ul>
       <div id="gui" style="position: absolute; top: 0; right: 0;"></div>
-      <div id="estrellas"></div>
+      <div id="estrellas"><script id="Orrery" src="./js/index.js" type="module"></script></div>
     </nav>
-    <script src="./js/index.js" type="module"></script>
   </body>
 </html>

@@ -1,0 +1,23 @@
+body {
+    overflow: auto;
+    margin: 0px;
+  }
+  #orrery {
+position: relative;
+z-index: -1;
+margin-top: -1px;
+overflow: hidden;
+border-top: 1px solid #000; 
+}
+
+#orrery div { 
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+}
+  footer {
+    position: relative;
+    z-index: 1;
+  }

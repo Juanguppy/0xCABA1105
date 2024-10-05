@@ -282,8 +282,8 @@ window.addEventListener("resize", () => {
     const estrellas = document.querySelectorAll('#estrellas div');
     estrellas.forEach(estrella => {
       estrella.style.opacity = Math.random();
-      estrella.style.top = `${Math.random() * 800}%`;
-      estrella.style.left = `${Math.random() * 800}%`;
+      estrella.style.top = `${Math.random() * 100}%`;
+      estrella.style.left = `${Math.random() * 100}%`;
     });
   }, 500); 
 
@@ -364,7 +364,7 @@ function createPlanetCard(planetName) {
   card.id = 'planet-card';
   card.style.position = 'fixed';
   card.style.left = '50%';
-  card.style.top = '10%';
+  card.style.top = '80%';
   card.style.transform = 'translate(-50%, -50%)';
   card.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
   card.style.color = 'white';
