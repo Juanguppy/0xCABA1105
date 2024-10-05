@@ -71,6 +71,41 @@
     <script type="text/javascript" src="./min.js/dat.gui.min.js"></script>
   </head>
   <body>
-    <script src="./js/solarSystem.js" type="module"></script>
+    <nav style="background-color: #00f; padding: 1em; display: flex; justify-content: space-around; align-items: center; position: relative;">
+      <h1 style="color: #fff; margin: 0; display: flex; align-items: center;">
+        <img src="https://logos-world.net/wp-content/uploads/2020/05/NASA-Logo-1975-1992-700x394.png" alt="NASA Logo" style="width: 120px; height: 60px; margin-right: 10px;">
+        <span style="color: white; font-size: smaller;"></span>
+      </h1>
+      <ul style="list-style: none; margin: 0; padding: 0; text-align: left; display: flex; flex-wrap: nowrap;">
+        <li style="margin-right: 70px; position: relative;">
+          <a href="#" style="color: #fff; text-decoration: none;">PLANETAS</a>
+          <ul style="display: none; position: absolute; top: 100%; left: 0; background-color: #00f; padding: 10px; border-radius: 5px; border: 1px solid #fff; flex-direction: column;">
+            <li><a href="#" onclick="zoomToPlanet('Mercury')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Mercurio</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Venus')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Venus</a></li>
+            <li><a href="#" onclick="zoomToPlanet('EMBary')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Tierra</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Mars')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Marte</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Jupiter')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Júpiter</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Saturn')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Saturno</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Uranus')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Urano</a></li>
+            <li><a href="#" onclick="zoomToPlanet('Neptune')" style="display: block; padding: 10px; color: #fff; text-decoration: none;">Neptuno</a></li>
+          </ul>
+        </li>
+        <li>
+          <label style="color: #fff; margin-right: 1px;">SOMBRA</label>
+          <input type="checkbox" id="real-view" checked style="margin-right: 70px;">
+        </li>
+        <li>
+          <label style="color: #fff; margin-right: 1px;">ÓRBITA</label>
+          <input type="checkbox" id="show-path" checked style="margin-right: 70px;">
+        </li>
+        <li>
+          <label style="color: #fff; margin-right: 1px;">VELOCIDAD</label>
+          <input type="range" id="speed" min="0" max="20" value="0.1">
+        </li>
+      </ul>
+      <div id="gui" style="position: absolute; top: 0; right: 0;"></div>
+      <div id="estrellas"></div>
+    </nav>
+    <script src="./js/index.js" type="module"></script>
   </body>
 </html>
