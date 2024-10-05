@@ -213,7 +213,7 @@ const planets = [
     self_rotation_speed: 428.48202785 / 1000000,
   },
   {
-    ...genratePlanet(7, neptuneTexture, datos.Uranus.a * 100, datos.Uranus.a * Math.sqrt(1- (datos.Uranus.e * datos.Uranus.e)) * 100, 0), // Multiply by 100 to make it visible in the model
+    ...genratePlanet(7, neptuneTexture, datos.Neptune.a * 100, datos.Neptune.a * Math.sqrt(1- (datos.Neptune.e * datos.Neptune.e)) * 100, 0), // Multiply by 100 to make it visible in the model
     rotaing_speed_around_sun: 218.45945325 / 1000000,
     self_rotation_speed: 218.45945325 / 1000000,
   },
