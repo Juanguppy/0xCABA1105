@@ -17,7 +17,6 @@ const jupiterTexture = textureLoader.load("./image/jupiter.jpg");
 const saturnTexture = textureLoader.load("./image/saturn.jpg");
 const uranusTexture = textureLoader.load("./image/uranus.jpg");
 const neptuneTexture = textureLoader.load("./image/neptune.jpg");
-const plutoTexture = textureLoader.load("./image/pluto.jpg");
 const saturnRingTexture = textureLoader.load("./image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("./image/uranus_ring.png");
 const scene = new THREE.Scene();
@@ -139,7 +138,7 @@ fetch('../planets.json')
       {
         ...genratePlanet( 5.8, venusTexture, datos.Venus.a * 100, datos.Venus.a * Math.sqrt(1- (datos.Venus.e * datos.Venus.e)) * 100, 0, 0,"Venus", "Planet"), // Multiply by 100 to make it visible in the model
         rotaing_speed_around_sun: 58517.81538729 / 1000000,
-        self_rotation_speed: 58517.81538729 / 1000000,
+        self_rotation_speed: -58517.81538729 / 1000000,
       },
       {
         ...genratePlanet( 6, earthTexture, datos.EMBary.a * 100, datos.EMBary.a * Math.sqrt(1- (datos.EMBary.e * datos.EMBary.e)) * 100, 0, 0,"EMBary", "Planet"), // Multiply by 100 to make it visible in the model
@@ -394,7 +393,6 @@ function getPlanetName(object) {
     saturnTexture,
     uranusTexture,
     neptuneTexture,
-    plutoTexture
   ];
 
   var planetNames = [
