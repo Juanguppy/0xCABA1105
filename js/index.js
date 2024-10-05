@@ -330,26 +330,40 @@ function getPlanetName(object) {
 
 
   var planetNames = [
-    "SOL\nEstrella\n0.475 Ly\n1.392.000 km de diametro",
-    "MERCURIO\nPlaneta\n0.488 Ly\n4.880 km de diametro",
-    "VENUS\nPlaneta\n0.475 Ly\n12.104 km de diametro",
-    "TIERRA\nPlaneta\n0.475 Ly\n12.742 km de diametro",
-    "MARTE\nPlaneta\n0.488 Ly\n6.779 km de diametro",
-    "JUPITER\nPlaneta\n0.475 Ly\n139.820 km de diametro",
-    "SATURNO\nPlaneta\n0.475 Ly\n116.460 km de diametro",
-    "URANO\nPlaneta\n0.475 Ly\n50.724 km de diametro",
-    "NEPTUNO\nPlaneta\n0.475 Ly\n49.244 km de diametro",
-    "PLUTON\nPlaneta enano\n0.488 Ly\n2.377 km de diametro"
+    "Sun",
+    "Mercury",
+    "Venus",
+    "EMBary",
+    "Mars",
+    "Jupiter",
+    "Saturno",
+    "Uranus",
+    "Neptune"
 ];
+
+function getOrbitInfo(planetName) {
+
+  if(planetName === "Sun") {
+    return "Sun, \n the star at the center of the Solar System.";
+  }
+  // Devolver la información de la órbita del planeta
+  return JSON.stringify({
+    a: datos[planetName].a,
+    e: datos[planetName].e,
+    i: datos[planetName].i,
+    long_peri : datos[planetName].long_peri,
+    long_node: datos[planetName].long_node,
+  }, null, 2);
+}
 
   for (var i = 0; i < planetTextures.length; i++) {
     if (object.material && object.material.map &&
         planetTextures[i].image.src === object.material.map.image.src) {
-      return planetNames[i];
+      return planetNames[i] + getOrbitInfo(planetNames[i]);
     }
   }
 
-  return "Desconocido";
+  return "Unknown";
 }
 
 function createPlanetCard(planetName) {
